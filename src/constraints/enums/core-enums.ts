@@ -1,14 +1,29 @@
+export enum Department {
+  Engineering = 'Engineering',
+  Marketing = 'Marketing',
+  Design = 'Design',
+  QA = 'QA',
+  Operations = 'Operations',
+  Product = 'Product',
+  Project = 'Project',
+  Other = 'Other',
+}
+
 export enum LeaveType {
   FullDay = 'Full Day',
-  HalfDay = 'Half Day',
+  HalfDayMorning = 'Half Day - Morning',
+  HalfDayAfternoon = 'Half Day - Afternoon',
+  MultipleDays = 'Multiple Days',
 }
 
 export enum LeaveCategory {
+  PersonalLeave = 'Personal Leave',
   SickLeave = 'Sick Leave',
-  VacationLeave = 'Vacation Leave',
   MaternityLeave = 'Maternity Leave',
-  ParentalLeave = 'Parental Leave',
-  Other = 'Other',
+  PaternityLeave = 'Paternity Leave',
+  BereavementLeave = 'Bereavement Leave',
+  FestivalDay = 'Festival Day',
+  ExamAssessment = 'Exam/Assessment Leave',
 }
 
 export enum ToastType {

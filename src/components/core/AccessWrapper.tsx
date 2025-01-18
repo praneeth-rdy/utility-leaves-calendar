@@ -56,10 +56,16 @@ export default function AccessWrapper(props: AccessWrapperProps) {
     <div className="relative">
       {!isLeavesLoading && !isHolidaysLoading && (
         <div className="absolute top-2.5 sm:top-3.5 right-4 sm:right-24 z-50 cursor-pointer flex items-center gap-3">
-          <div onClick={openLeavesAnalyticsModal} className="hidden sm:flex sm:items-center sm:justify-center p-2 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition-colors shadow-sm">
+          <div
+            onClick={openLeavesAnalyticsModal}
+            className="hidden md:flex md:items-center md:justify-center p-2 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition-colors shadow-sm"
+          >
             <ChartLine size={18} className="text-zinc-600 dark:text-zinc-300" />
           </div>
-          <Avatar className="size-8 ring-2 ring-offset-2 ring-zinc-100 dark:ring-zinc-800 hover:ring-zinc-200 dark:hover:ring-zinc-700 transition-colors" onClick={openProfileModal}>
+          <Avatar
+            className="size-8 ring-2 ring-offset-2 ring-zinc-100 dark:ring-zinc-800 hover:ring-zinc-200 dark:hover:ring-zinc-700 transition-colors"
+            onClick={openProfileModal}
+          >
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>Profile</AvatarFallback>
           </Avatar>

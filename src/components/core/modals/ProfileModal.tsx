@@ -14,36 +14,8 @@ import { CalendarIcon, UserCircle, Mail, Building2, UserRound, CalendarDays, Fil
 import GenericModal from './GenericModal';
 import { applyLeave } from '@/services/leaves-service';
 import { showToast } from '@/utils/core-utils';
-import { ToastType } from '@/constraints/enums/core-enums';
+import { Department, LeaveCategory, LeaveType, ToastType } from '@/constraints/enums/core-enums';
 import { useCoreStore } from '@/stores/core-store';
-
-enum Department {
-  Engineering = 'Engineering',
-  Marketing = 'Marketing',
-  Design = 'Design',
-  QA = 'QA',
-  Operations = 'Operations',
-  Product = 'Product',
-  Project = 'Project',
-  Other = 'Other',
-}
-
-enum LeaveType {
-  FullDay = 'Full Day',
-  HalfDayMorning = 'Half Day - Morning',
-  HalfDayAfternoon = 'Half Day - Afternoon',
-  MultipleDays = 'Multiple Days',
-}
-
-enum LeaveCategory {
-  PersonalLeave = 'Personal Leave',
-  SickLeave = 'Sick Leave',
-  MaternityLeave = 'Maternity Leave',
-  PaternityLeave = 'Paternity Leave',
-  BereavementLeave = 'Bereavement Leave',
-  FestivalDay = 'Festival Day',
-  ExamAssessment = 'Exam/Assessment Leave',
-}
 
 const departments = Object.values(Department);
 const leaveTypes = [LeaveType.FullDay, LeaveType.HalfDayMorning, LeaveType.HalfDayAfternoon];

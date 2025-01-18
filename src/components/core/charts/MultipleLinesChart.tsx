@@ -30,9 +30,7 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
 
     return (
       <div className="bg-white w-[200px] max-w-1/2 p-[8px_12px] border rounded-[6px] shadow-lg">
-        <p className="font-montserrat text-[10px] font-semibold leading-[16px] text-[#838889] uppercase">
-          {label}
-        </p>
+        <p className="font-montserrat text-[10px] font-semibold leading-[16px] text-[#838889] uppercase">{label}</p>
         {payload.map((entry) => {
           const dataKey = entry.dataKey as keyof typeof chartConfig;
           const isSelected = showAll || selectedMetrics.includes(dataKey);
@@ -49,7 +47,8 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
                 <div>{chartConfig[dataKey].label}</div>
               </span>
               <span className="font-montserrat text-[12px] font-semibold leading-[20px] text-[#394042]">
-                {entry.value}{maxYAxis && `/${maxYAxis}`}
+                {entry.value}
+                {maxYAxis && `/${maxYAxis}`}
               </span>
             </div>
           );
@@ -87,9 +86,17 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
   const toggleAll = () => {
     setSelectedMetrics([]);
   };
-
-  const getAverage = (data: any[], metric: string) => {
-    return Math.round(data.reduce((acc, curr) => acc + curr[metric], 0) / data.length);
+  const getSum = (data: any[], metric?: string) => {
+    if (!metric) {
+      return Math.round(
+        data.reduce((acc, curr) => {
+          return acc + Object.values(curr).reduce((sum: number, val) => {
+            return typeof val === 'number' ? sum + val : sum;
+          }, 0);
+        }, 0)
+      );
+    }
+    return Math.round(data.reduce((acc, curr) => acc + curr[metric], 0));
   };
 
   useEffect(() => {
@@ -99,11 +106,7 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
   }, [selectedMetrics]);
 
   return (
-    <ChartLayout
-      title={chartTitle}
-      showInfoIcon={showInfoIcon}
-      showDownloadIcon={showDownloadIcon}
-    >
+    <ChartLayout title={chartTitle} showInfoIcon={showInfoIcon} showDownloadIcon={showDownloadIcon}>
       <div>
         {showFilters && (
           <div className="flex flex-wrap gap-[20px] bg-white rounded-t-[10px] p-[24px]">
@@ -113,12 +116,12 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
                 showAll ? 'border border-[#0185E4] bg-[#0185E41F]' : 'border-[#E6E7E7]'
               }`}
             >
-              <div className="">
-                <span className="font-montserrat text-[18px] font-semibold leading-[26px] text-[#071013] text-center">
-                  {Object.keys(chartConfig).length}{' '}
+              <div className="flex flex-col items-start justify-center self-stretch">
+                <span className="font-montserrat text-[18px] font-semibold leading-[26px] text-[#071013]">
+                  {getSum(chartData)}{' '}
                 </span>
-                <span className="font-montserrat text-[14px] font-normal leading-[22px] text-[#838889] text-center">
-                  Metrics
+                <span className="font-montserrat text-[14px] font-normal leading-[22px] text-[#838889]">
+                  Leaves
                 </span>
               </div>
               <div className="font-montserrat text-[14px] font-medium leading-[22px] text-[#394042]">All</div>
@@ -134,13 +137,15 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
                 >
                   <div>
                     <span className="font-montserrat text-[18px] font-semibold leading-[26px] text-[#071013] text-center">
-                      {getAverage(chartData, key)}
+                      {getSum(chartData, key)}
                     </span>
                     <span className="font-montserrat text-[14px] font-normal leading-[22px] text-[#838889] text-center">
                       {maxYAxis && `/${maxYAxis}`}
                     </span>
                   </div>
-                  <div className="font-montserrat text-[14px] font-medium leading-[22px] text-[#394042] whitespace-nowrap">{label}</div>
+                  <div className="font-montserrat text-[14px] font-medium leading-[22px] text-[#394042] whitespace-nowrap">
+                    {label}
+                  </div>
                   <div className="flex w-full h-[4px] rounded-full z-10" style={{ backgroundColor: color }}></div>
                 </div>
               ))}

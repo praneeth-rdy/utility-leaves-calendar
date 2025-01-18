@@ -58,30 +58,29 @@ const CustomPieChart: React.FC<CustomPieChartProps> = ({
         startAngle = 0,
         endAngle = 0,
         fill = 'transparent',
-      }: SectorProps): JSX.Element =>
-        (
-          <g>
-            <Sector
-              cx={cx}
-              cy={cy}
-              innerRadius={innerRadius}
-              outerRadius={outerRadius}
-              startAngle={startAngle}
-              endAngle={endAngle}
-              fill={fill}
-              style={{ opacity: 0.2 }}
-            />
-            <Sector
-              cx={cx}
-              cy={cy}
-              innerRadius={outerRadius + 2}
-              outerRadius={outerRadius + 5}
-              startAngle={startAngle}
-              endAngle={endAngle}
-              fill={fill}
-            />
-          </g>
-        ),
+      }: SectorProps): JSX.Element => (
+        <g>
+          <Sector
+            cx={cx}
+            cy={cy}
+            innerRadius={innerRadius}
+            outerRadius={outerRadius}
+            startAngle={startAngle}
+            endAngle={endAngle}
+            fill={fill}
+            style={{ opacity: 0.2 }}
+          />
+          <Sector
+            cx={cx}
+            cy={cy}
+            innerRadius={outerRadius + 2}
+            outerRadius={outerRadius + 5}
+            startAngle={startAngle}
+            endAngle={endAngle}
+            fill={fill}
+          />
+        </g>
+      ),
     [],
   );
 

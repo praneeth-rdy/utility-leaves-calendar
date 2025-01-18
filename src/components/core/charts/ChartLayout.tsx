@@ -77,7 +77,7 @@ const ChartLayoutContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex flex-col items-start justify-center text-center gap-1 px-6 pb-4', className)}
+      className={cn('flex flex-col justify-center text-center gap-1 px-6 pb-4', className)}
       {...props}
     />
   ),
