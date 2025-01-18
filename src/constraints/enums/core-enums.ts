@@ -30,3 +30,8 @@ export enum ToastType {
   Success = 'success',
   Error = 'error',
 }
+
+export enum ChartType {
+  Pie = 'pie',
+  MultipleLines = 'multipleLines',
+}

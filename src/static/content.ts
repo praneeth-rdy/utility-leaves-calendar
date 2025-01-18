@@ -12,7 +12,7 @@ export const exampleLeaves = [
     role: 'Software Engineer',
     leaveReason: 'Family vacation',
     leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveCategory: LeaveCategory.PersonalLeave,
   },
   {
     id: '2',
@@ -22,7 +22,7 @@ export const exampleLeaves = [
     department: 'Marketing',
     role: 'Marketing Manager',
     leaveReason: 'Doctor appointment',
-    leaveType: LeaveType.HalfDay,
+    leaveType: LeaveType.HalfDayMorning,
     leaveCategory: LeaveCategory.SickLeave,
   },
   {
@@ -33,7 +33,7 @@ export const exampleLeaves = [
     department: 'Human Resources',
     role: 'HR Manager',
     leaveReason: 'Maternity leave',
-    leaveType: LeaveType.FullDay,
+    leaveType: LeaveType.MultipleDays,
     leaveCategory: LeaveCategory.MaternityLeave,
   },
   {
@@ -44,8 +44,8 @@ export const exampleLeaves = [
     department: 'Sales',
     role: 'Sales Representative',
     leaveReason: 'Christmas holiday',
-    leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveType: LeaveType.MultipleDays,
+    leaveCategory: LeaveCategory.FestivalDay,
   },
   {
     id: '5',
@@ -56,7 +56,7 @@ export const exampleLeaves = [
     role: 'Financial Analyst',
     leaveReason: 'Personal matters',
     leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.Other,
+    leaveCategory: LeaveCategory.PersonalLeave,
   },
   {
     id: '6',
@@ -66,8 +66,8 @@ export const exampleLeaves = [
     department: 'Engineering',
     role: 'QA Engineer',
     leaveReason: 'New Year vacation',
-    leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveType: LeaveType.MultipleDays,
+    leaveCategory: LeaveCategory.PersonalLeave,
   },
   {
     id: '7',
@@ -77,8 +77,8 @@ export const exampleLeaves = [
     department: 'Operations',
     role: 'Operations Manager',
     leaveReason: 'Parental leave',
-    leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.ParentalLeave,
+    leaveType: LeaveType.MultipleDays,
+    leaveCategory: LeaveCategory.PaternityLeave,
   },
   {
     id: '8',
@@ -89,7 +89,7 @@ export const exampleLeaves = [
     role: 'Support Specialist',
     leaveReason: 'Christmas Eve',
     leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveCategory: LeaveCategory.FestivalDay,
   },
   {
     id: '9',
@@ -99,8 +99,8 @@ export const exampleLeaves = [
     department: 'Product',
     role: 'Product Manager',
     leaveReason: 'Family event',
-    leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveType: LeaveType.MultipleDays,
+    leaveCategory: LeaveCategory.PersonalLeave,
   },
   {
     id: '10',
@@ -110,8 +110,8 @@ export const exampleLeaves = [
     department: 'Design',
     role: 'UI/UX Designer',
     leaveReason: 'Year-end break',
-    leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveType: LeaveType.MultipleDays,
+    leaveCategory: LeaveCategory.PersonalLeave,
   },
   {
     id: '11',
@@ -122,7 +122,7 @@ export const exampleLeaves = [
     role: 'DevOps Engineer',
     leaveReason: 'Christmas Eve',
     leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveCategory: LeaveCategory.FestivalDay,
   },
   {
     id: '12',
@@ -133,6 +133,6 @@ export const exampleLeaves = [
     role: 'Content Writer',
     leaveReason: 'Christmas Eve',
     leaveType: LeaveType.FullDay,
-    leaveCategory: LeaveCategory.VacationLeave,
+    leaveCategory: LeaveCategory.FestivalDay,
   },
 ];

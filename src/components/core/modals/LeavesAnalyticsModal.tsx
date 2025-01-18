@@ -1,61 +1,55 @@
 import { DateTime } from 'luxon';
 import GenericModal from './GenericModal';
 import CustomPieChart from '../charts/CustomPieChart';
-import MultipleLinesChart from '../charts/MultipleLinesChart';
-import { LeaveCategory } from '@/constraints/enums/core-enums';
+import MultipleLinesChart, { MultipleLinesChartProps } from '../charts/MultipleLinesChart';
+import { ChartType, LeaveCategory } from '@/constraints/enums/core-enums';
+import { useCoreStore } from '@/stores/core-store';
+import { formatLeavesForChart } from '@/utils/parsing-utils';
+import { CustomPieChartProps } from '@/constraints/types/chart-types';
+import { ChartConfig } from '@/components/ui/chart';
+
+type LineChartDataType = {
+  config: {
+    personal: { label: string; theme: { light: string; dark: string } };
+    sick: { label: string; theme: { light: string; dark: string } };
+    others: { label: string; theme: { light: string; dark: string } };
+  };
+  data: Array<{
+    month: string;
+    personal: number;
+    sick: number;
+    others: number;
+  }>;
+};
+
+type PieChartDataType = Array<{
+  name: string;
+  value: number;
+  percentage: string;
+  color: string;
+}>;
 
 export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
   const { isOpen, onClose } = props;
+  const leaves = useCoreStore((state) => state.leaves);
 
-  const sampleChartData = [
-    {
-      name: LeaveCategory.PersonalLeave,
-      value: 5,
-      percentage: '35%',
-      color: '#FF9F43',
-    },
-    {
-      name: LeaveCategory.SickLeave,
-      value: 6,
-      percentage: '40%',
-      color: '#28C76F',
-    },
-    {
-      name: 'Others',
-      value: 4,
-      percentage: '25%',
-      color: '#7367F0',
-    },
-  ];
+  const lineChartData = formatLeavesForChart(leaves, ChartType.MultipleLines);
+  const pieChartData = formatLeavesForChart(leaves, ChartType.Pie);
 
-  const lineChartData = [
-    { month: 'Jan', personal: 2, sick: 1, others: 0 },
-    { month: 'Feb', personal: 1, sick: 2, others: 1 },
-    { month: 'Mar', personal: 0, sick: 1, others: 2 },
-    { month: 'Apr', personal: 1, sick: 2, others: 1 },
-    { month: 'May', personal: 1, sick: 0, others: 0 },
-    { month: 'Jun', personal: 2, sick: 1, others: 1 },
-    { month: 'Jul', personal: 1, sick: 2, others: 0 },
-    { month: 'Aug', personal: 0, sick: 1, others: 1 },
-    { month: 'Sep', personal: 1, sick: 0, others: 2 },
-    { month: 'Oct', personal: 2, sick: 1, others: 1 },
-    { month: 'Nov', personal: 1, sick: 2, others: 0 },
-    { month: 'Dec', personal: 0, sick: 1, others: 1 }
-  ];
+  const isLineChartData = (data: ReturnType<typeof formatLeavesForChart>): data is LineChartDataType => {
+    return 'config' in data && 
+      'data' in data && 
+      Array.isArray(data.data) &&
+      data.data.every(item => 
+        'month' in item && 
+        'personal' in item && 
+        'sick' in item && 
+        'others' in item
+      );
+  };
 
-  const lineChartConfig = {
-    personal: {
-      label: LeaveCategory.PersonalLeave,
-      color: '#FF9F43',
-    },
-    sick: {
-      label: LeaveCategory.SickLeave,
-      color: '#28C76F',
-    },
-    others: {
-      label: 'Others',
-      color: '#7367F0',
-    },
+  const isPieChartData = (data: ReturnType<typeof formatLeavesForChart>): data is PieChartDataType => {
+    return Array.isArray(data);
   };
 
   return (
@@ -70,24 +64,32 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
           <p className="mt-2 text-sm text-muted-foreground">View analytics about leaves taken</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-y-6">
-          <MultipleLinesChart
-            chartData={lineChartData}
-            chartConfig={lineChartConfig}
-            XAxisDataKey="month"
-            showFilters={true}
-            chartTitle="Leave Trends"
-            showInfoIcon={false}
-            showDownloadIcon={false}
-          />
-          <CustomPieChart
-            chartData={sampleChartData}
-            chartTitle="Leaves Distribution"
-            title="Leaves Distribution"
-            showDownloadIcon={false}
-            isDonutChart={false}
-          >
-            <div />
-          </CustomPieChart>
+          {isLineChartData(lineChartData) && (
+            <MultipleLinesChart
+              chartData={lineChartData.data}
+              chartConfig={{
+                personal: { label: 'Personal Leave', color: lineChartData.config.personal.theme.light },
+                sick: { label: 'Sick Leave', color: lineChartData.config.sick.theme.light },
+                others: { label: 'Others', color: lineChartData.config.others.theme.light }
+              }}
+              XAxisDataKey="month"
+              showFilters={true}
+              chartTitle="Leave Trends"
+              showInfoIcon={false}
+              showDownloadIcon={false}
+            />
+          )}
+          {isPieChartData(pieChartData) && (
+            <CustomPieChart
+              chartData={pieChartData}
+              chartTitle="Leaves Distribution"
+              title="Leaves Distribution"
+              showDownloadIcon={false}
+              isDonutChart={false}
+            >
+              <div />
+            </CustomPieChart>
+          )}
         </div>
       </div>
     </GenericModal>

@@ -3,6 +3,12 @@ import { toast, ToastPosition } from 'react-hot-toast';
 import { dateToEpoch, formatEpochToHumanReadable } from '@/utils/date-utils';
 import { PublicHoliday } from '@/constraints/types/core-types';
 
+/**
+ * Checks if a given date falls within any of the provided public holidays
+ * @param date - The date to check
+ * @param holidays - Array of public holidays to check against
+ * @returns The name of the holiday if date falls within one, undefined otherwise
+ */
 export const isHoliday = (date: Date, holidays: PublicHoliday[]): string | undefined => {
   const holiday = holidays.find((holiday) => {
     const holidayStart = new Date(holiday.startDate);
@@ -12,6 +18,11 @@ export const isHoliday = (date: Date, holidays: PublicHoliday[]): string | undef
   return holiday?.name;
 };
 
+/**
+ * Shows a toast notification with the given type and message
+ * @param type - The type of toast (success/error)
+ * @param message - The message to display
+ */
 export const showToast = (type: ToastType, message: string) => {
   const options = {
     duration: 3000,
@@ -28,6 +39,11 @@ export const showToast = (type: ToastType, message: string) => {
   }
 };
 
+/**
+ * Generates an Adaptive Card for leave details
+ * @param formData - The form data containing leave details
+ * @returns An Adaptive Card object
+ */
 export const generateAdaptiveCard = (formData: any) => {
   const startDate = formatEpochToHumanReadable(dateToEpoch(formData.leaveStartDate));
   const endDate = formatEpochToHumanReadable(dateToEpoch(formData.leaveEndDate));

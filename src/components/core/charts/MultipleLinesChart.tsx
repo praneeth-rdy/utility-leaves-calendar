@@ -9,7 +9,7 @@ import { ChartConfig, ChartContainer, ChartTooltip } from '@/components/ui/chart
 import { isEmpty } from 'lodash';
 import ChartLayout from './ChartLayout';
 
-interface MultipleLinesChartProps {
+export interface MultipleLinesChartProps {
   maxYAxis?: number;
   chartData: Array<{
     [key: string]: string | number;
