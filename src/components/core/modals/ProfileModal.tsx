@@ -63,6 +63,7 @@ export default function ProfileModal(props: ProfileModalProps) {
   // const [showCustomCategory, setShowCustomCategory] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { populateLeaves } = useCoreStore();
+  const updateProfileEmail = useCoreStore((state) => state.updateProfileEmail);
 
   // Load initial values from localStorage
   const savedProfile = localStorage.getItem('userProfile');
@@ -137,6 +138,11 @@ export default function ProfileModal(props: ProfileModalProps) {
       form.setValue('leaveType', '');
     }
   }, [form.watch('leaveStartDate'), form.watch('leaveEndDate')]);
+
+  useEffect(() => {
+    const profileEmail = form.getValues('email');
+    updateProfileEmail(profileEmail);
+  }, [form.watch('email')]);
 
   async function onSubmit(data: FormData) {
     const username = localStorage.getItem('username');

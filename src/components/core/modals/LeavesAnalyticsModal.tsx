@@ -43,7 +43,7 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
     lineChartData.data.every((item) => item.personal === 0 && item.sick === 0 && item.others === 0);
 
   const userLeaves = formatLeavesForChart(leaves, { email: profileEmail });
-  const displayedLeaves = showAllLeaves ? userLeaves : userLeaves.slice(0, 6);
+  const displayedLeaves = showAllLeaves ? userLeaves : (userLeaves as Leave[]).slice(0, 6);
 
   return (
     <GenericModal
@@ -65,9 +65,7 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
             <div className="rounded-full bg-gray-100 dark:bg-zinc-800 p-6 mb-4">
               <Calendar className="size-12 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-              No Leave Data Available
-            </h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No Leave Data Available</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-sm">
               There are no recorded leaves for this period. New leaves will appear here once they are submitted.
             </p>
@@ -105,16 +103,14 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
                 <h3 className="text-lg font-semibold">Recent Leaves</h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {displayedLeaves.map((leave: Leave) => (
+                {(displayedLeaves as Leave[]).map((leave: Leave) => (
                   <div
                     key={leave.id}
                     className="bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 p-4 hover:shadow-md transition-shadow"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                          {leave.leaveType}
-                        </div>
+                        <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{leave.leaveType}</div>
                         <div className="text-xs text-zinc-500 dark:text-zinc-400">
                           {leave.startDate.getTime() === leave.endDate.getTime()
                             ? formatEpochToHumanReadable(dateToEpoch(leave.startDate))
@@ -130,13 +126,11 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
                         </div>
                       )}
                     </div>
-                    <div className="text-sm text-zinc-600 dark:text-zinc-300 line-clamp-2">
-                      {leave.leaveReason}
-                    </div>
+                    <div className="text-sm text-zinc-600 dark:text-zinc-300 line-clamp-2">{leave.leaveReason}</div>
                   </div>
                 ))}
               </div>
-              {userLeaves.length > 6 && (
+              {(userLeaves as Leave[]).length > 6 && (
                 <div className="flex justify-center mt-6">
                   <button
                     onClick={() => setShowAllLeaves(!showAllLeaves)}

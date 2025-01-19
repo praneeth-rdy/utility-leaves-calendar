@@ -79,7 +79,7 @@ const filterLeavesByYear = (leaves: Leave[], year?: number): Leave[] => {
     filtered.push({
       ...leave,
       startDate: adjustedStart,
-      endDate: adjustedEnd
+      endDate: adjustedEnd,
     });
 
     return filtered;
@@ -160,8 +160,12 @@ const formatLeavesForLineChart = (leaves: Leave[]) => {
 
     const calculateMonthlyLeaveDays = (filteredLeaves: Leave[]) => {
       return filteredLeaves.reduce((total, leave) => {
-        const start = DateTime.fromJSDate(leave.startDate) < monthStart ? monthStart : DateTime.fromJSDate(leave.startDate);
-        const end = DateTime.fromJSDate(leave.endDate).startOf('day') > monthEnd ? monthEnd : DateTime.fromJSDate(leave.endDate).startOf('day');
+        const start =
+          DateTime.fromJSDate(leave.startDate) < monthStart ? monthStart : DateTime.fromJSDate(leave.startDate);
+        const end =
+          DateTime.fromJSDate(leave.endDate).startOf('day') > monthEnd
+            ? monthEnd
+            : DateTime.fromJSDate(leave.endDate).startOf('day');
         return total + calculateLeaveDays(start.toJSDate(), end.toJSDate(), leave.leaveType);
       }, 0);
     };
