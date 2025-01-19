@@ -2,6 +2,7 @@ import { ChartType, LeaveType } from '@/constraints/enums/core-enums';
 import { LeaveCategory } from '@/constraints/enums/core-enums';
 import { Leave, PublicHoliday } from '@/constraints/types/core-types';
 import { DateTime } from 'luxon';
+import { stringToColour } from './miscellaneous-utils';
 
 /**
  * Parses raw leave data into typed Leave objects
@@ -124,13 +125,13 @@ const formatLeavesForPieChart = (leaves: Leave[]) => {
       name: LeaveCategory.PersonalLeave,
       value: Math.round((categoryCount.personal || 0) * 10) / 10,
       percentage: `${Math.round(((categoryCount.personal || 0) / total) * 100)}%`,
-      color: '#FF9F43',
+      color: stringToColour(LeaveCategory.PersonalLeave),
     },
     {
       name: LeaveCategory.SickLeave,
       value: Math.round((categoryCount.sick || 0) * 10) / 10,
       percentage: `${Math.round(((categoryCount.sick || 0) / total) * 100)}%`,
-      color: '#28C76F',
+      color: stringToColour(LeaveCategory.SickLeave),
     },
     {
       name: 'Others',
@@ -184,15 +185,15 @@ const formatLeavesForLineChart = (leaves: Leave[]) => {
       personal: {
         label: 'Personal Leave',
         theme: {
-          light: '#FF9F43',
-          dark: '#FF9F43',
+          light: stringToColour(LeaveCategory.PersonalLeave),
+          dark: stringToColour(LeaveCategory.PersonalLeave),
         },
       },
       sick: {
         label: 'Sick Leave',
         theme: {
-          light: '#28C76F',
-          dark: '#28C76F',
+          light: stringToColour(LeaveCategory.SickLeave),
+          dark: stringToColour(LeaveCategory.SickLeave),
         },
       },
       others: {
@@ -225,8 +226,6 @@ export const formatLeavesForChart = (
   if (options?.email) {
     filteredLeaves = filterLeavesByEmail(filteredLeaves, options.email);
   }
-
-  console.log(filteredLeaves);
 
   switch (options?.chartType) {
     case ChartType.Pie:

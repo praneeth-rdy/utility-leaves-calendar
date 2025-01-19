@@ -123,7 +123,7 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
                       </div>
                       {leave.leaveCategory && (
                         <div
-                          className="text-xs font-medium text-white px-2 py-1 rounded-full"
+                          className="text-xs font-medium text-white px-2 py-1 rounded-full whitespace-nowrap"
                           style={{ backgroundColor: stringToColour(leave.leaveCategory) }}
                         >
                           {leave.leaveCategory}
@@ -136,14 +136,16 @@ export default function LeavesAnalyticsModal(props: LeavesAnalyticsModalProps) {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center mt-6">
-                <button
-                  onClick={() => setShowAllLeaves(!showAllLeaves)}
-                  className="px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-                >
-                  {showAllLeaves ? 'Show Less' : 'View All Leave History'}
-                </button>
-              </div>
+              {userLeaves.length > 6 && (
+                <div className="flex justify-center mt-6">
+                  <button
+                    onClick={() => setShowAllLeaves(!showAllLeaves)}
+                    className="px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  >
+                    {showAllLeaves ? 'Show Less' : 'View All Leave History'}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -156,4 +158,3 @@ type LeavesAnalyticsModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
-
