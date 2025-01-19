@@ -86,17 +86,19 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
   const toggleAll = () => {
     setSelectedMetrics([]);
   };
+
   const getSum = (data: any[], metric?: string) => {
     if (!metric) {
-      return Math.round(
-        data.reduce((acc, curr) => {
-          return acc + Object.values(curr).reduce((sum: number, val) => {
+      return data.reduce((acc, curr) => {
+        return (
+          acc +
+          Object.values(curr).reduce((sum: number, val) => {
             return typeof val === 'number' ? sum + val : sum;
-          }, 0);
-        }, 0)
-      );
+          }, 0)
+        );
+      }, 0);
     }
-    return Math.round(data.reduce((acc, curr) => acc + curr[metric], 0));
+    return data.reduce((acc, curr) => acc + curr[metric], 0);
   };
 
   useEffect(() => {
@@ -120,9 +122,7 @@ export default function MultipleLinesChart(props: MultipleLinesChartProps) {
                 <span className="font-montserrat text-[18px] font-semibold leading-[26px] text-[#071013]">
                   {getSum(chartData)}{' '}
                 </span>
-                <span className="font-montserrat text-[14px] font-normal leading-[22px] text-[#838889]">
-                  Leaves
-                </span>
+                <span className="font-montserrat text-[14px] font-normal leading-[22px] text-[#838889]">Leaves</span>
               </div>
               <div className="font-montserrat text-[14px] font-medium leading-[22px] text-[#394042]">All</div>
             </div>

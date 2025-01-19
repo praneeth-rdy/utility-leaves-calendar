@@ -39,8 +39,6 @@ const CustomBarChart: React.FC<IBarChartProps> = ({
     };
   }, [layout, valueKey, categoryKey]);
 
-  console.log({ axisConfig });
-
   return (
     <ChartLayout title={chartTitle} selectOptions={selectOptions} handleSelect={handleSelect}>
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full mt-8">

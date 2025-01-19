@@ -93,3 +93,24 @@ export interface ChartLabelProps {
   outerRadius?: number;
   index?: number;
 }
+
+export type LineChartDataType = {
+  config: {
+    personal: { label: string; theme: { light: string; dark: string } };
+    sick: { label: string; theme: { light: string; dark: string } };
+    others: { label: string; theme: { light: string; dark: string } };
+  };
+  data: Array<{
+    month: string;
+    personal: number;
+    sick: number;
+    others: number;
+  }>;
+};
+
+export type PieChartDataType = Array<{
+  name: string;
+  value: number;
+  percentage: string;
+  color: string;
+}>;

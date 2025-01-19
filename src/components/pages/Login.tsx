@@ -1,8 +1,11 @@
 import LoginModal from '@/components/core/modals/LoginModal';
+import { useCoreStore } from '@/stores/core-store';
 import { useState } from 'react';
 
-export default function Login(props: LoginProps) {
+export default function Login() {
   const [isOpen, setIsOpen] = useState(true);
+
+  const updateUser = useCoreStore((state) => state.updateUser);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -11,7 +14,7 @@ export default function Login(props: LoginProps) {
   const handleLogin = (username: string, password: string) => {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
-    props.onLogin();
+    updateUser({ username, password });
     handleClose();
   };
 
@@ -21,7 +24,3 @@ export default function Login(props: LoginProps) {
     </div>
   );
 }
-
-type LoginProps = {
-  onLogin: () => void;
-};
